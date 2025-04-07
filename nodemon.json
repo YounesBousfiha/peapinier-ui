@@ -1,0 +1,9 @@
+{
+  "watch": ["src", "public", "app", "components", "lib"],
+  "ext": "js,jsx,ts,tsx,json,css",
+  "exec": "next dev",
+  "signal": "SIGTERM",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
