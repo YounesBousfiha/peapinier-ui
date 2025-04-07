@@ -1,9 +1,19 @@
+// app/layout.tsx
+import Sidebar from "./SideBar";
+import Navbar from "./NavBar";
+
 export default function Layout({ children }) {
-  return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        {children}
-      </div>
-    </div>
-  )
+    return (
+        <div className="h-full relative">
+            <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-gray-900">
+                <Sidebar />
+            </div>
+            <div className="md:pl-72">
+                <Navbar />
+                <main className="p-8">
+                    {children}
+                </main>
+            </div>
+        </div>
+    );
 }
