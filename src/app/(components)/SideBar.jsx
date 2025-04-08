@@ -10,12 +10,26 @@ import {
     PackageSearch,
     LogOut,
 } from 'lucide-react';
+import {authService} from "../../services/AuthServices";
+import { toast } from "sonner";
+import Cookie from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export default function Sidebar() {
 
+    const router = useRouter();
 
-    const handleLogout = () => {
-        console.log('Logout clicked');
+    const handleLogout = async () => {
+        try {
+            toast.loading("Logging out...");
+            const response = await authService.logout();
+            toast.dismiss();
+            toast.success("Logged out successfully!");
+            Cookie.remove('token');
+            router.push('/login');
+        } catch (error) {
+            toast.error("Error logging out. Please try again.");
+        }
     }
     const pathname = usePathname();
 
