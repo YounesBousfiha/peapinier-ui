@@ -1,17 +1,10 @@
-import axios from 'axios';
+import axios from '../../src/lib/axios';
 import Cookies from "js-cookie";
-
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
-axios.defaults.withCredentials = false;
-axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export const authService = {
     register: async (userData) => {
         try {
-             //await axios.get('/sanctum/csrf-cookie');
-
-            // Then proceed with the registration
-            const response = await axios.post('/api/register', userData);
+            const response = await axios.post('/register', userData);
             return response.data;
         } catch (error) {
             throw new Error('Failed to register');
@@ -19,7 +12,10 @@ export const authService = {
     },
     login: async (userData) => {
         try {
-            const response = await axios.post('/api/login', userData);
+            const response = await axios.post('/login', userData);
+            Cookies.set('token', response.data.token, {
+                domain: 'localhost'
+            });
             return response.data;
         } catch (error) {
             throw new Error('Failed to login');
@@ -28,14 +24,18 @@ export const authService = {
 
     logout: async () => {
         try {
-            const response = await axios.post('/api/logout', {}, {
+            const response = await axios.post('/logout', {}, {
                 headers : {
                     'Authorization': `Bearer ${Cookies.get('token')}`
                 }
             });
+            Cookies.remove('token', {
+                domain: 'localhost'
+            });
+            Cookies.remove('token');
             return response.data;
         } catch (error) {
-            throw new Error('Failed to logout');
+            throw new Error('Failed to', error);
         }
     }
 }
