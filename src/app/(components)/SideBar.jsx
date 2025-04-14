@@ -10,6 +10,7 @@ import {
     PackageSearch,
     LogOut,
 } from 'lucide-react';
+import LogOutForm from './LogOutForm'
 import {authService} from "../../services/AuthServices";
 import { toast } from "sonner";
 import Cookie from 'js-cookie';
@@ -79,13 +80,7 @@ export default function Sidebar() {
                         </Link>
                     ))}
                 </div>
-                <button
-                    onClick={handleLogout}
-                    className="absolute bottom-0 left-0 w-full p-3 bg-white text-slate-900 hover:bg-gray-100 transition-colors flex items-center justify-center font-medium"
-                >
-                    <LogOut className="w-5 h-5 mr-2"/>
-                    Logout
-                </button>
+                <LogOutForm />
             </div>
         </div>
     );
